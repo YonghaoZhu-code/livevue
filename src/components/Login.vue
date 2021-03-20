@@ -73,24 +73,33 @@ export default {
     // 通过密码发送登录验证
     async login () {
       if (this.loginForm.loginid === '' || this.loginForm.password === '') return
-      const data = await this.$http.post('/loginbypw', { loginid: this.loginForm.loginid, password: this.loginForm.password })
-      console.log(data)
+      const { data: res } = await this.$http.post('/loginbypw', { loginid: this.loginForm.loginid, password: this.loginForm.password })
+      if (res.code !== 200) return this.$message.error(res.msg)
+      window.sessionStorage.setItem('token', res.Token)
+      return this.$message.success(res.msg)
     },
     reset () { this.$refs.loginFormRef.resetFields() },
+    // 通过验证码登录
     async  codelogin () {
       if (this.lbtntype === 'info' || this.loginForm.code === '' || this.loginForm.email === '') return
-      const data = await this.$http.get('loginbymail', { params: { email: this.loginForm.email, code: this.loginForm.code } })
-      console.log(data)
+      const { data: res } = await this.$http.get('loginbymail', { params: { email: this.loginForm.email, mailcode: this.loginForm.code } })
+      // console.log(data)
+      if (res.code !== 200) return this.$message.error(res.msg)
+      window.sessionStorage.setItem('token', res.Token)
+      return this.$message.success(res.msg)
     },
-    // 请求发送验证码
+    // 获取验证码
     async getCode () {
-      if (this.show === false || this.loginForm.email === '') return
+      const isEmail = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
+      if (this.show === false || !isEmail.test(this.regForm.email)) return
       this.show = false
       this.sbtntype = 'info'
       this.lbtntype = 'primary'
-      // 通过验证码登录
-      const data = await this.$http.get('/sendmailcode', { params: { email: this.loginForm.email } })
-      console.log(data)
+      // 请求发送验证码
+      const { data: res } = await this.$http.get('/sendmailcode', { params: { email: this.loginForm.email } })
+      // console.log(data)
+      if (res.code !== 200) return this.$message.error('发送验证失败')
+      this.$message.success(res.msg)
       this.timmer = setInterval(() => { this.count-- }, 1000)
       setTimeout(() => {
         this.show = true
