@@ -80,7 +80,7 @@ export default {
       this.$message.success(res.msg)
     },
     async register () {
-      if (this.show === '' || this.regForm.mailcode === '' || this.regForm.username === '' || this.regForm.password === '') return
+      if (this.lbtntype === 'info' || this.regForm.username === '' || this.regForm.password === '' || this.regForm.mailcode === '') return
       const { data: res } = await this.$http.post('/register', {
         username: this.regForm.username,
         password: this.regForm.password,
@@ -96,8 +96,7 @@ export default {
 </script>
 <style lang="less" scoped>
  .registerBox{
-    width: 100vw;
-    height: 100vh;
+    height: 90vh;
     background-color: blue;
     display: flex;
     justify-content: center;

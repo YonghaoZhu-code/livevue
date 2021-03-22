@@ -8,25 +8,29 @@ const routes = [
   },
   {
     path: '/home',
-    component: () => import('../components/home.vue')
+    name: 'home',
+    component: () => import('../views/Home.vue')
   },
   {
     path: '/login',
-    component: () => import('../components/Login.vue')
+    name: 'login',
+    component: () => import('../views/Login.vue')
   },
   {
     path: '/register',
-    component: () => import('../components/Register.vue')
+    name: 'register',
+    component: () => import('../views/Register.vue')
   }
 ]
 const router = new VueRouter({
   routes
 })
-router.beforeEach((to, from, next) => {
-  if (to.path === '/home') {
-    const tok = window.sessionStorage.getItem('token')
-    if (!tok) return next('/login')
-  }
-  next()
-})
+// 请求拦截
+// router.beforeEach((to, from, next) => {
+//   if (to.path === '/home') {
+//     const tok = window.sessionStorage.getItem('token')
+//     if (!tok) return next('/login')
+//   }
+//   next()
+// })
 export default router

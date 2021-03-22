@@ -37,13 +37,14 @@
       <el-button id="loginbtn" :type="lbtntype" @click="codelogin" >登 录</el-button>
   </el-form-item>
  </el-tab-pane>
- <div class="register"><a>没有账号？点击注册</a></div>
+ <div @click="register" class="register">没有账号？点击注册</div>
   </el-tabs>
   </el-form>
   </el-card>
     </div>
 </template>
 <script>
+import { mapState, mapActions } from 'vuex'
 export default {
   data () {
     return {
@@ -69,13 +70,21 @@ export default {
 
     }
   },
+  computed: {
+    ...mapState(['userInfo'])
+  },
   methods: {
+    ...mapActions(['setUserInfo']),
+    register () {
+      this.$router.push({ name: 'register' })
+    },
     // 通过密码发送登录验证
     async login () {
       if (this.loginForm.loginid === '' || this.loginForm.password === '') return
       const { data: res } = await this.$http.post('/loginbypw', { loginid: this.loginForm.loginid, password: this.loginForm.password })
       if (res.code !== 200) return this.$message.error(res.msg)
       window.sessionStorage.setItem('token', res.Token)
+      this.setUserInfo(res.userInfo)
       return this.$message.success(res.msg)
     },
     reset () { this.$refs.loginFormRef.resetFields() },
@@ -91,15 +100,10 @@ export default {
     // 获取验证码
     async getCode () {
       const isEmail = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
-      if (this.show === false || !isEmail.test(this.regForm.email)) return
+      if (this.show === false || !isEmail.test(this.loginForm.email)) return
       this.show = false
       this.sbtntype = 'info'
       this.lbtntype = 'primary'
-      // 请求发送验证码
-      const { data: res } = await this.$http.get('/sendmailcode', { params: { email: this.loginForm.email } })
-      // console.log(data)
-      if (res.code !== 200) return this.$message.error('发送验证失败')
-      this.$message.success(res.msg)
       this.timmer = setInterval(() => { this.count-- }, 1000)
       setTimeout(() => {
         this.show = true
@@ -108,6 +112,11 @@ export default {
         this.lbtntype = 'info'
         clearInterval(this.timmer)
       }, 60000)
+      // 请求发送验证码
+      const { data: res } = await this.$http.get('/sendmailcode', { params: { email: this.loginForm.email } })
+      // console.log(data)
+      if (res.code !== 200) return this.$message.error('发送验证失败')
+      this.$message.success(res.msg)
     }
   }
 }
@@ -115,7 +124,9 @@ export default {
 <style lang="less" scoped>
 .login-container{
     background-color: aqua;
-    height: 100vh;
+    height: 90vh;
+    width: 100vw;
+    padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -165,6 +176,7 @@ export default {
         }
       }
       .register{
+        cursor: pointer;
         margin: 10px 10px;
       }
     }
