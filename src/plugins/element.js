@@ -12,7 +12,10 @@ import {
   Tabs,
   TabPane,
   Card,
-  Avatar
+  Avatar,
+  Upload,
+  Row,
+  Col
 
 } from 'element-ui'
 Vue.use(Button)
@@ -28,4 +31,7 @@ Vue.use(TabPane)
 Vue.use(Card)
 Vue.use(Avatar)
 Vue.component(Message)
+Vue.use(Upload)
+Vue.use(Row)
+Vue.use(Col)
 Vue.prototype.$message = Message

@@ -3,7 +3,7 @@
     <el-card class="box-card">
       <div class="loginTitle">请登录</div>
       <el-form :model="loginForm"  class="login-form" :rules="loginFormRules" ref="loginFormRef">
-    <el-tabs value="first" stretch="true">
+    <el-tabs value="first" :stretch="true">
     <el-tab-pane label="密码登录" name="first">
       <!-- 用户账号 -->
   <el-form-item prop="loginid" label="用户名">
@@ -123,7 +123,9 @@ export default {
 </script>
 <style lang="less" scoped>
 .login-container{
-    background-color: aqua;
+    background: url('../assets/bg.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
     height: 90vh;
     width: 100vw;
     padding: 0;
@@ -134,6 +136,7 @@ export default {
 .box-card{
     width: 450px;
     height: 400px;
+    background: rgba(255, 255, 255, 0.4);
     .loginTitle{
       height: 20px;
       text-align: center;

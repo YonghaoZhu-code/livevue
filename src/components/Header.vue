@@ -3,9 +3,11 @@
         <div class="logo">
           <img class="imgshow" src="../assets/logo.png"/>
         </div>
-         <el-button class="btns" type="danger" plain @click="toHome">首页</el-button>
-         <el-button class="btns" type="danger" plain >分类</el-button>
-         <el-button class="btns" type="danger" plain @click="see">排行</el-button>
+        <ul class="ulbox">
+         <li><router-link to="/">首页</router-link ></li>
+         <li><router-link to="/login">分类</router-link></li>
+         <li><router-link to="/mine">排行</router-link></li>
+         </ul>
          <div class="search">
              <el-input v-model="keyWord" size="large" placeholder="输入关键字搜索" ></el-input>
              <el-button type="danger" icon="el-icon-search" size="mini">搜索</el-button>
@@ -49,15 +51,11 @@ export default {
     toLogin () {
       this.$router.push({ name: 'login' })
     },
-    toHome () { this.$router.push({ name: 'home' }) },
     loginOut () {
       window.sessionStorage.clear('token')
       // 清空用户信息
       this.setUserInfo({})
       this.$router.push({ name: 'home' })
-    },
-    see () {
-      console.log(this.userInfo)
     }
   }
 }
@@ -65,7 +63,7 @@ export default {
 <style lang="less" scoped>
 .headerBox{
     width: 100vw;
-    height: 10vh;
+    height: 60px;
     padding: 0;
     display: flex;
     background-color: rgb(252, 208, 244);
@@ -77,11 +75,21 @@ export default {
             height: 100%;
         }
     }
-    .btns{
-        margin-top: 5px;
-        margin-left: 30px;
-        height: 50px;
-    }
+.ulbox{
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 60px;
+  width: 280px;
+  li{
+     font-size: 20px;
+     a{
+       text-decoration: none;
+       color: rgb(90, 36, 36);
+     }
+  }
+
+}
     .search{
         height: 60px;
         margin-left: 60px;

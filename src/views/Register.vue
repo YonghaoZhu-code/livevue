@@ -13,7 +13,7 @@
   </el-form-item>
    <!-- 邮箱 -->
     <el-form-item  prop="email" class="lab" label="邮 箱">
-    <el-input class="space" v-model="regForm.email"  placeholder="请输入邮箱地址"></el-input>
+    <el-input :disabled="flag" class="space" v-model="regForm.email"  placeholder="请输入邮箱地址"></el-input>
   </el-form-item >
   <!-- 验证码 -->
    <el-form-item prop="mailcode" label="验证码">
@@ -43,6 +43,7 @@ export default {
         mailcode: ''
       },
       show: true,
+      flag: false,
       count: '60',
       sbtntype: 'primary',
       lbtntype: 'info',
@@ -65,12 +66,14 @@ export default {
       this.show = false
       this.sbtntype = 'info'
       this.lbtntype = 'primary'
+      this.flag = true
       this.timmer = setInterval(() => { this.count-- }, 1000)
       setTimeout(() => {
         this.show = true
         this.count = 60
         this.sbtntype = 'primary'
         this.lbtntype = 'info'
+        this.flag = false
         clearInterval(this.timmer)
       }, 60000)
       // 请求发送验证码
@@ -97,13 +100,16 @@ export default {
 <style lang="less" scoped>
  .registerBox{
     height: 90vh;
-    background-color: blue;
+    background: url('../assets/bg3.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
     display: flex;
     justify-content: center;
     align-items: center;
     .el-card{
      width: 400px;
      height: 500px;
+     background: rgba(255, 255, 255, 0.4);
      .title{
          height: 20px;
       text-align: center;
