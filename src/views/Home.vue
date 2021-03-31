@@ -1,7 +1,15 @@
 <template>
-  <div class="home">
-    <h1></h1>
-  </div>
+<div class="box">
+<div class="column left">left</div>
+<div class="column main">
+  <el-carousel :interval="5000" arrow="always" >
+    <el-carousel-item v-for="item in 4" :key="item">
+      <h3>{{ item }}</h3>
+    </el-carousel-item>
+  </el-carousel>
+</div>
+<div class="column right ">right</div>
+</div>
 </template>
 <script>
 export default {
@@ -11,12 +19,38 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-.home{
-   background: url('../assets/mainbg.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: 90vh;
-    width: 100vw;
-    padding: 0;
+.box{
+width:100vw;
+height: 90vh;
+display:flex;
+margin:0 auto;
 }
+.column{
+min-height:500px;
+}
+.left{
+width:200px;
+// background-color:skyblue;
+}
+.right{
+ width:200px;
+//  background-color:pink;
+}
+.main{
+flex:1;
+background-color:yellow;
+}
+.el-carousel__item h3 {
+    color: #475669;
+    font-size: 18px;
+    opacity: 0.75;
+    line-height: 300px;
+    margin: 0;
+  }
+  .el-carousel__item:nth-child(2n) {
+    background-color: #99a9bf;
+  }
+  .el-carousel__item:nth-child(2n+1) {
+    background-color: #d3dce6;
+  }
 </style>

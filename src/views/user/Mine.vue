@@ -3,8 +3,8 @@
 <div class="topBox">
   <div class="header">
 <div class="img">
-   <el-avatar :src="HeaderUrl" icon="el-icon-user-solid" :size="100"></el-avatar>
-   <h1>依噶</h1>
+   <el-avatar :src="imageUrl+userInfo.HeaderUrl" icon="el-icon-user-solid" :size="100"></el-avatar>
+   <h1>{{userInfo.username}}</h1>
 </div>
 <div>
   <el-row>
@@ -47,21 +47,19 @@
 </div>
 </template>
 <script>
-// import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 export default {
   data () {
     return {
-      imageUrl: this.userInfo.imageUrl,
-      email: this.userInfo.email,
-      uploadUrl: this.$baseURL + 'uploads/headerimg'
+      imageUrl: this.$baseURL
     }
+  },
+  computed: {
+    ...mapState(['userInfo'])
+  },
+  methods: {
+    ...mapActions(['setUserInfo'])
   }
-//   computed: {
-//     ...mapState(['userInfo'])
-//   },
-//   methods: {
-//     ...mapActions(['setUserInfo'])
-//   }
 }
 </script>
 <style lang="less" scoped>

@@ -15,7 +15,9 @@ import {
   Avatar,
   Upload,
   Row,
-  Col
+  Col,
+  Carousel,
+  CarouselItem
 
 } from 'element-ui'
 Vue.use(Button)
@@ -34,4 +36,6 @@ Vue.component(Message)
 Vue.use(Upload)
 Vue.use(Row)
 Vue.use(Col)
+Vue.use(Carousel)
+Vue.use(CarouselItem)
 Vue.prototype.$message = Message

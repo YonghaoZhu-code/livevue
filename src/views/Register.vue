@@ -109,7 +109,7 @@ export default {
     .el-card{
      width: 400px;
      height: 500px;
-     background: rgba(255, 255, 255, 0.4);
+     background: rgba(255, 255, 255, 0.8);
      .title{
          height: 20px;
       text-align: center;

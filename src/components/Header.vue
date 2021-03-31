@@ -6,7 +6,7 @@
         <ul class="ulbox">
          <li><router-link to="/">首页</router-link ></li>
          <li><router-link to="/login">分类</router-link></li>
-         <li><router-link to="/mine">排行</router-link></li>
+         <li><router-link to="">排行</router-link></li>
          </ul>
          <div class="search">
              <el-input v-model="keyWord" size="large" placeholder="输入关键字搜索" ></el-input>
@@ -17,7 +17,9 @@
                 <el-avatar :src="HeaderUrl" icon="el-icon-user-solid" :size="50"></el-avatar>
                 <div v-if="userInfo.username" class="yeslogin" >
                     <div>{{userInfo.username}}</div>
+                    <router-link to="/mine">
                     <div @click="tomine">个人中心</div>
+                    </router-link>
                     <div @click="loginOut">退出登录</div>
                 </div>
                 <div v-else class="tologin" @click="toLogin">请先登录</div>
@@ -38,8 +40,8 @@ export default {
     userInfo (newValue) {
       if (newValue) {
         // 获取用户头像
-        //    this.headimg=this.userInfo.HeaderUrl
-        console.log('用户信息变化了，嘻嘻')
+        // this.HeaderUrl = this.$baseURL + JSON.parse(window.sessionStorage.getItem('userInfo')).HeaderUrl
+        this.HeaderUrl = this.$baseURL + this.userInfo.HeaderUrl
       }
     }
   },
@@ -52,7 +54,7 @@ export default {
       this.$router.push({ name: 'login' })
     },
     loginOut () {
-      window.sessionStorage.clear('token')
+      window.sessionStorage.clear('userInfo')
       // 清空用户信息
       this.setUserInfo({})
       this.$router.push({ name: 'home' })

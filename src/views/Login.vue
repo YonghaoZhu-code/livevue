@@ -83,7 +83,8 @@ export default {
       if (this.loginForm.loginid === '' || this.loginForm.password === '') return
       const { data: res } = await this.$http.post('/loginbypw', { loginid: this.loginForm.loginid, password: this.loginForm.password })
       if (res.code !== 200) return this.$message.error(res.msg)
-      window.sessionStorage.setItem('token', res.Token)
+      const userInfo = JSON.stringify(res.userInfo)
+      window.sessionStorage.setItem('userInfo', userInfo)
       this.setUserInfo(res.userInfo)
       return this.$message.success(res.msg)
     },
@@ -94,7 +95,7 @@ export default {
       const { data: res } = await this.$http.get('loginbymail', { params: { email: this.loginForm.email, mailcode: this.loginForm.code } })
       // console.log(data)
       if (res.code !== 200) return this.$message.error(res.msg)
-      window.sessionStorage.setItem('token', res.Token)
+      // window.sessionStorage.setItem('token', res.Token)
       return this.$message.success(res.msg)
     },
     // 获取验证码
@@ -136,7 +137,7 @@ export default {
 .box-card{
     width: 450px;
     height: 400px;
-    background: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.8);
     .loginTitle{
       height: 20px;
       text-align: center;
