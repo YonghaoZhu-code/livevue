@@ -78,7 +78,7 @@ export default {
      width: 70vw;
      height: 25vh;
      overflow: hidden;
-     background: url('./minebg.webp');
+     background: url('./minebg.jpg');
      background-repeat: no-repeat;
      background-size: cover;
      display: flex;

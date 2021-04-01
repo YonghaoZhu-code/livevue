@@ -17,8 +17,8 @@
                 <el-avatar :src="HeaderUrl" icon="el-icon-user-solid" :size="50"></el-avatar>
                 <div v-if="userInfo.username" class="yeslogin" >
                     <div>{{userInfo.username}}</div>
-                    <router-link to="/mine">
-                    <div @click="tomine">个人中心</div>
+                   <router-link to="/mine">
+                    <div>个人中心</div>
                     </router-link>
                     <div @click="loginOut">退出登录</div>
                 </div>
@@ -41,7 +41,7 @@ export default {
       if (newValue) {
         // 获取用户头像
         // this.HeaderUrl = this.$baseURL + JSON.parse(window.sessionStorage.getItem('userInfo')).HeaderUrl
-        this.HeaderUrl = this.$baseURL + this.userInfo.HeaderUrl
+        if (this.userInfo.HeaderUrl === undefined) { this.HeaderUrl = '' } else { this.HeaderUrl = this.$baseURL + this.userInfo.HeaderUrl }
       }
     }
   },
@@ -111,6 +111,9 @@ export default {
             height: 60px;
             display: flex;
             align-items: center;
+            a{
+            text-decoration: none;
+            }
             .tologin{
               margin-left: 3px;
               color: brown;
@@ -122,8 +125,9 @@ export default {
                 width: 290px;
                 div{
                     margin-left: 10px;
-                    color: rgb(204, 102, 71);
+                    color: rgb(90, 36, 36);
                     cursor: pointer;
+                    font-size: 20px;
                 }
             }
         }

@@ -1,17 +1,17 @@
 <template>
     <div class="box">
       <div  class="info">
+        <i class="el-icon-edit" @click="change">修改资料</i>
        <p>用户名:<span>{{userInfo.username}}</span></p>
        <p>邮箱:<span>{{userInfo.email}}</span></p>
        <p>年龄:<span>{{age}}</span></p>
        <p>性别:<span>{{sex}}</span></p>
-       <p>{{uploadUrl}}</p>
       </div>
-      <div v-show="!flag" class="change">
+      <div v-show="flag" class="change">
       <el-form :model="form"  label-width="80px">
     <!-- 上传头像 -->
     <el-form-item label="更换头像" >
-    <el-upload
+   <el-upload
    list-type="picture-card"
   class="avatar-uploader"
   name="img"
@@ -29,7 +29,7 @@
     <el-input v-model="form.password"></el-input>
      </el-form-item>
      <el-form-item class="btns">
-      <el-button type="primary" @click="save" >保存</el-button>
+      <el-button type="primary" >保存</el-button>
      </el-form-item>
       </el-form>
       </div>
@@ -59,7 +59,10 @@ export default {
     ...mapState(['userInfo'])
   },
   methods: {
-    ...mapActions(['setUserInfo'])
+    ...mapActions(['setUserInfo']),
+    change () {
+      this.flag = !this.flag
+    }
   }
 }
 </script>
@@ -72,6 +75,10 @@ export default {
   width: 400px;
   height: 100px;
   margin: 20px;
+  i{margin-left: 30px;
+    color: #409EFF;
+    cursor: pointer;
+  }
   p{
     font-size: 20px;
     color: rgb(124, 122, 121);

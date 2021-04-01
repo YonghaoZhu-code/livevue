@@ -182,6 +182,7 @@ export default {
       .register{
         cursor: pointer;
         margin: 10px 10px;
+        color: rgb(75, 164, 236);
       }
     }
 }
