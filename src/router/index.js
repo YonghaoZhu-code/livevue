@@ -46,7 +46,15 @@ const routes = [
     meta: {
       auth: false
     }
+  },
+  {
+    path: '/sellerlist',
+    component: () => import('../components/sellerList.vue'),
+    meta: {
+      auth: false
+    }
   }
+
 ]
 const router = new VueRouter({
   routes
