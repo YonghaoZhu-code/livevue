@@ -10,7 +10,7 @@
          </ul>
          <div class="search">
              <el-input v-model="keyWord" size="large" placeholder="输入关键字搜索" ></el-input>
-             <el-button type="danger" icon="el-icon-search" size="mini">搜索</el-button>
+             <el-button type="primary" icon="el-icon-search" size="mini">搜索</el-button>
          </div>
          <div class="headimg">
              <div class="islogin" >
@@ -64,11 +64,10 @@ export default {
 </script>
 <style lang="less" scoped>
 .headerBox{
-    width: 100vw;
+    width:100%;
     height: 60px;
     padding: 0;
     display: flex;
-    background-color: rgb(252, 208, 244);
     .logo{
         height: 60px;
         width: 170px;

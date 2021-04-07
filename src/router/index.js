@@ -53,6 +53,13 @@ const routes = [
     meta: {
       auth: false
     }
+  },
+  {
+    path: '/onlive',
+    component: () => import('../views/onlive/onlive.vue'),
+    meta: {
+      auth: false
+    }
   }
 
 ]

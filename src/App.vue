@@ -24,12 +24,18 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.el-container{
+  width: 100vw;
+}
 .el-header{
   display: block;
   padding: 0;
+  width: 100%;
+  overflow: hidden;
 }
 .el-main{
   padding: 0;
-  width: 100vw;
+  width: 100%;
+  overflow: hidden;
 }
 </style>

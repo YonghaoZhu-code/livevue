@@ -29,7 +29,7 @@
         <div class="show-title">{{seller.title}}</div>
         <div class="show-mine">
           <div class="show-mine-name">{{seller.user}}</div>
-          <div class="show-mine-see"><i class="el-icon-view"></i>2.6万</div>
+          <div class="show-mine-see"><i class="iconfont icon-team"></i>2.6万</div>
         </div>
       </div>
       </router-link>
@@ -80,6 +80,12 @@ export default {
           dd: '/login',
           imgurl: 'https://wallpaperm.cmcm.com/a4ed799f867feb1eebda7acdabd326d1.jpg',
           title: '新品发布会'
+        },
+        {
+          user: '迈凯伦',
+          dd: '/login',
+          imgurl: 'https://wallpaperm.cmcm.com/a4ed799f867feb1eebda7acdabd326d1.jpg',
+          title: '新品发布会'
         }
 
       ]
@@ -90,7 +96,7 @@ export default {
 <style lang="less" scoped>
 .top{
   height: 612px;
-  width: 100vw;
+  width: 100%;
   background-color: rgb(121, 86, 159);
   .bg{
     height: 565px;
@@ -127,7 +133,7 @@ export default {
 
 }
 .box{
-width:100vw;
+width:100%;
 display:flex;
 margin:0 auto;
 }
