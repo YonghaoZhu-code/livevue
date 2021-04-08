@@ -13,16 +13,16 @@
                <el-avatar :src="HeaderUrl" icon="el-icon-user-solid" :size="60"></el-avatar>
              </div>
              <div class="content">
-               <div class="shang">TITLE</div>
+               <div class="shang">{{liver.title||'无标题'}}</div>
                <div class="xia">
                 <div class="zuo">
-                  <div>恩七不甜</div>
-                  <div><i class="iconfont icon-gift-fill" style="color:#ff0066;font-size: 22px;"></i>30万</div>
-                  <div>NO：>1000</div>
+                  <div>{{liver.name||'恩七不甜'}}</div>
+                  <div><i class="iconfont icon-gift-fill" style="color:#fb7299;font-size: 22px;"></i>{{liver.gift||2.2}}万</div>
+                  <div>NO：{{liver.no||999}}</div>
                 </div>
                 <div class="you">
                   <div><i class="iconfont icon-heart"></i>关注</div>
-                  <div>26万</div>
+                  <div>{{liver.fans||1.2}}万</div>
                 </div>
                </div>
              </div>
@@ -43,12 +43,21 @@
       </div>
         </div>
         <div class="catalog">
-          <div >TA的简介</div>
+          <div class="first">TA的简介</div>
           <div class="logbox"></div>
         </div>
         <div class="zoom">
-          <div >TA的动态</div>
-          <div class="zoombox"></div>
+          <div class="first">TA的动态</div>
+          <div class="zoombox">
+            <div style="width:70px;padding:6px">
+               <el-avatar :src="HeaderUrl" icon="el-icon-user-solid" :size="65"></el-avatar>
+            </div>
+            <div class="zoomctx">
+            <div>{{liver.name||'恩七不甜'}}</div>
+            <div class="date">1.31</div>
+            <div class="text">内容区</div>
+            </div>
+          </div>
         </div>
         </div>
   <div class="right"></div>
@@ -60,8 +69,20 @@
 export default {
   data () {
     return {
-      HeaderUrl: ''
+      HeaderUrl: '',
+      liver: {}
     }
+  },
+  methods: {
+    async getliverInfo () {
+      const uid = this.$route.params.uid || ''
+      const { data: res } = await this.$http.get('/getliverinfo', { params: { uid } })
+      if (res.code !== 200) return this.$message.error('获取主播数据失败')
+      this.liver = res.liver
+    }
+  },
+  mounted () {
+    this.getliverInfo()
   }
 }
 </script>
@@ -191,16 +212,16 @@ min-height:500px;
         }
     }
 }
-.catalog{
-  width: 905px ;
-  margin-top: 50px;
-  :first-child{
+.first{
     width: 60px;
     color:#5cf ;
     font-size: 14px;
     margin-left: 30px;
     border-bottom: 2px solid #5cf;;
   }
+.catalog{
+  width: 905px ;
+  margin-top: 50px;
   .logbox{
     box-sizing: border-box;
     border-radius: 14px;
@@ -214,19 +235,33 @@ min-height:500px;
       width: 905px ;
       min-height: 905px;
       margin-top: 50px;
-  :first-child{
-    width: 60px;
-    color:#5cf ;
-    font-size: 14px;
-    margin-left: 30px;
-    border-bottom: 2px solid #5cf;;
-  }
   .zoombox{
-    border-radius: 14px;
+    border-radius: 4px;
     background-color: #fff;
     box-sizing: border-box;
-    height: 149px;
-    padding: 24px;
+    height: 240px;
+    padding: 12px;
+    display:flex;
+    .zoomctx{
+      width: 534px;
+      :first-child{
+        color: #fb7299;
+        font-size: 16px;
+        margin-top: 10px;
+        padding: 3px;
+      }
+      .date{
+        color: #99a2aa;
+        font-size: 12px;
+        padding: 3px;
+      }
+      .text{
+        margin-top: 8px;
+        padding: 3px;
+        width: 524px;
+        height: 54px;
+      }
+    }
   }
     }
 }

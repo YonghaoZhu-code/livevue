@@ -23,13 +23,13 @@
         </a>
     </div>
     <div class="ctx">
-      <router-link :to="seller.dd" v-for="seller in sellers" :key="seller">
+      <router-link :to="`/onlive/${liver.uid || 0}`" v-for="liver in livers" :key="liver">
       <div class="show" >
-        <div class="show-pic" :style="`background-image:url(${seller.imgurl}) `"></div>
-        <div class="show-title">{{seller.title}}</div>
+        <div class="show-pic" :style="`background-image:url(${liver.imgUrl || 0}) `"></div>
+        <div class="show-title">{{liver.title || 0}}</div>
         <div class="show-mine">
-          <div class="show-mine-name">{{seller.user}}</div>
-          <div class="show-mine-see"><i class="iconfont icon-team"></i>2.6万</div>
+          <div class="show-mine-name">{{liver.name || 0}}</div>
+          <div class="show-mine-see"><i class="iconfont icon-team"></i>{{liver.fans || 0}}万</div>
         </div>
       </div>
       </router-link>
@@ -44,52 +44,20 @@
 export default {
   data () {
     return {
-      sellers: [
-        {
-          user: '奥迪',
-          dd: '/login',
-          imgurl: 'https://wallpaperm.cmcm.com/1ef12434060e9db21d8cb2917d6fafcb.jpg',
-          title: 'RS7发布会'
-        },
-        {
-          user: '宝马',
-          dd: '/register',
-          imgurl: 'https://wallpaperm.cmcm.com/d35a7602dacc4a4009d85a9896c146c1.jpg',
-          title: '新品发布会'
-        },
-        {
-          user: '奔驰',
-          dd: '/login',
-          imgurl: 'https://wallpaperm.cmcm.com/a4ed799f867feb1eebda7acdabd326d1.jpg',
-          title: '新品发布会'
-        },
-        {
-          user: '宾利',
-          dd: '/login',
-          imgurl: 'https://wallpaperm.cmcm.com/1ef12434060e9db21d8cb2917d6fafcb.jpg',
-          title: 'RS7发布会'
-        },
-        {
-          user: '布加迪',
-          dd: '/login',
-          imgurl: 'https://wallpaperm.cmcm.com/d35a7602dacc4a4009d85a9896c146c1.jpg',
-          title: '新品发布会'
-        },
-        {
-          user: '迈凯伦',
-          dd: '/login',
-          imgurl: 'https://wallpaperm.cmcm.com/a4ed799f867feb1eebda7acdabd326d1.jpg',
-          title: '新品发布会'
-        },
-        {
-          user: '迈凯伦',
-          dd: '/login',
-          imgurl: 'https://wallpaperm.cmcm.com/a4ed799f867feb1eebda7acdabd326d1.jpg',
-          title: '新品发布会'
-        }
-
+      livers: [
       ]
     }
+  },
+  methods: {
+    // 获取粉丝数排名前10的主播
+    async getToplivers () {
+      const { data: res } = await this.$http.get('/getlivers')
+      if (res.code !== 200) return this.$message.error('获取数据失败')
+      this.livers = res.livers.rows
+    }
+  },
+  created () {
+    this.getToplivers()
   }
 }
 </script>
