@@ -137,7 +137,7 @@ export default {
 .box-card{
     width: 450px;
     height: 400px;
-    background: rgba(255, 255, 255, 0.8);
+    background: #fff;
     .loginTitle{
       height: 20px;
       text-align: center;

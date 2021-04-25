@@ -26,10 +26,10 @@
       <router-link :to="`/onlive/${liver.uid || 0}`" v-for="liver in livers" :key="liver">
       <div class="show" >
         <div class="show-pic" :style="`background-image:url(${liver.imgUrl || 0}) `"></div>
-        <div class="show-title">{{liver.title || 0}}</div>
+        <div class="show-title">{{liver.title || "用户闲置177"}}</div>
         <div class="show-mine">
-          <div class="show-mine-name">{{liver.name || 0}}</div>
-          <div class="show-mine-see"><i class="iconfont icon-team"></i>{{liver.fans || 0}}万</div>
+          <div class="show-mine-name">{{liver.name || "恩七不甜"}}</div>
+          <div class="show-mine-see"><i class="iconfont icon-team"></i>{{liver.fans || 1.2}}万</div>
         </div>
       </div>
       </router-link>

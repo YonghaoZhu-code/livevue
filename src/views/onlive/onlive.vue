@@ -28,7 +28,10 @@
              </div>
              </div>
           <div class="leftmain">
-            <div></div>
+            <div v-show="liver.isLive"><liveplayer :playUrl="liver.playUrl"></liveplayer></div>
+          </div>
+          <div class="leftshopping">
+            666
           </div>
       </div>
       <!-- 右容器弹幕位置 -->
@@ -37,9 +40,25 @@
                     color: #333;">前方高能</div>
         <div class="danmutop"></div>
         <div class="danmuctx">
-          <div class="items"></div>
+          <div class="msg">系统提示：原子带货直播内容及互动评论须严格遵守直播规范，严禁传播违法违规、低俗血暴、吸烟酗酒、造谣诈骗等不良有害信息。如有违规，平台将进行封禁直至永久封停账号哦！</div>
+          <div class="itemctx" ref="danmu">
+          <div class="items" v-for="msg in message" :key="msg">
+            <span class="username"><i></i>恩七不甜</span>
+            <span class="danmumsg">{{msg}}</span>
+          </div>
+          </div>
         </div>
-        <div class="danmubuttom"></div>
+        <div class="danmubuttom">
+         <div>
+  <el-input
+  type="textarea"
+  :rows="2"
+  placeholder="请输入弹幕内容"
+  v-model="danmumsg">
+</el-input></div>
+<div><el-button type="primary" @click="senddanmu">发送</el-button>
+</div>
+        </div>
       </div>
         </div>
         <div class="catalog">
@@ -66,23 +85,53 @@
 </div>
 </template>
 <script>
+import liveplayer from '../../components/live'
 export default {
   data () {
     return {
+      ws: {},
       HeaderUrl: '',
-      liver: {}
+      liver: {},
+      danmumsg: '',
+      message: []
     }
   },
+  components: { liveplayer },
   methods: {
     async getliverInfo () {
       const uid = this.$route.params.uid || ''
       const { data: res } = await this.$http.get('/getliverinfo', { params: { uid } })
       if (res.code !== 200) return this.$message.error('获取主播数据失败')
       this.liver = res.liver
+    },
+    senddanmu () {
+      if (this.ws.readyState !== WebSocket.OPEN) {
+        console.log('连接未建立，还不能发送消息')
+        return
+      }
+      if (this.danmumsg) {
+        this.ws.send(this.danmumsg)
+        console.log('发送弹幕成功')
+      }
+    },
+    initWebSocket () {
+      const wsurl = 'ws://localhost:8383/' + this.$route.params.uid
+      this.ws = new WebSocket(wsurl)
+      this.ws.addEventListener('open', function (event) {
+        console.log('连接成功，可以实时通讯')
+      })
+      this.ws.addEventListener('message', (event) => {
+        this.message.push(event.data)
+        this.$nextTick(() => {
+          this.$refs.danmu.scrollTop = this.$refs.danmu.scrollHeight
+        })
+        console.log(this.message)
+      })
     }
   },
   mounted () {
     this.getliverInfo()
+    this.initWebSocket()
   }
 }
 </script>
@@ -204,7 +253,24 @@ min-height:500px;
         .danmuctx{
           background-color: #f8f8f8;
           height: 450px;
-          overflow-y: overlay;
+           .msg{
+            margin: 0 auto;
+            width: 90%;
+            padding: 5px;
+            font-size: 12px;
+             line-height: 1.5;
+             color: #fb7299;}
+             .itemctx{
+             margin: 0 auto;
+              width: 90%;
+              padding: 5px;
+              height: 350px;
+              background-color: rgb(165, 216, 216);
+              overflow-y:scroll;
+              .items{
+              max-height: 68px;
+              overflow: hidden;
+             }   }
         }
         .danmubuttom{
           background-color: #f8f8f8;
