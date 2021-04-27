@@ -5,8 +5,8 @@
         </div>
         <ul class="ulbox">
          <li><router-link to="/">首页</router-link ></li>
-         <li><router-link to="/sellerlist">分类</router-link></li>
-         <li><router-link to="/details">排行</router-link></li>
+         <li><router-link to="/sellerlist">直播</router-link></li>
+         <li><router-link to="/details">分类</router-link></li>
          </ul>
          <div class="search">
              <el-input v-model="keyWord" size="large" placeholder="输入关键字搜索" ></el-input>
@@ -86,7 +86,7 @@ export default {
      font-size: 20px;
      a{
        text-decoration: none;
-       color: rgb(90, 36, 36);
+       color: #212121;
      }
   }
 
@@ -115,7 +115,7 @@ export default {
             }
             .tologin{
               margin-left: 3px;
-              color: brown;
+              color: #212121;
               cursor: pointer;
             }
             .yeslogin{
@@ -124,7 +124,7 @@ export default {
                 width: 290px;
                 div{
                     margin-left: 10px;
-                    color: rgb(90, 36, 36);
+                    color: #212121;
                     cursor: pointer;
                     font-size: 20px;
                 }

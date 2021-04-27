@@ -127,11 +127,18 @@ export default {
         })
         console.log(this.message)
       })
+    },
+    async getHeaderurl () {
+      const uid = this.$route.params.uid || ''
+      const { data: res } = await this.$http.get('/getheaderurl', { params: { uid } })
+      this.HeaderUrl = this.$baseURL + res.HeaderUrl
+      console.log(this.HeaderUrl)
     }
   },
   mounted () {
     this.getliverInfo()
     this.initWebSocket()
+    this.getHeaderurl()
   }
 }
 </script>

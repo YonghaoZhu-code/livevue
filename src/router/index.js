@@ -40,6 +40,10 @@ const routes = [
       {
         path: '/mine/userinfo',
         component: () => import('../views/user/children/userinfo.vue')
+      },
+      {
+        path: '/mine/tolive',
+        component: () => import('../views/user/children/tolive.vue')
       }
     ],
     // 权限页面拦截，true为需要权限

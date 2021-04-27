@@ -68,12 +68,10 @@ export default {
 </script>
 <style lang="less" scoped>
 .box{
-  width: 900px;
   display: flex;
   margin:0 auto;
 .info{
   width: 400px;
-  height: 100px;
   margin: 20px;
   i{margin-left: 30px;
     color: #409EFF;
@@ -92,7 +90,6 @@ export default {
 .change{
   margin-top: 20px;
   width: 200px;
-  height: 150px;
 }}
   .avatar-uploader .el-upload {
     border: 1px dashed #d9d9d9;

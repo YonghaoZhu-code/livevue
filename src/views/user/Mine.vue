@@ -1,5 +1,7 @@
 <template>
 <div class="mainbox">
+<div class="left"></div>
+<div class="main">
 <div class="topBox">
   <div class="header">
 <div class="img">
@@ -42,8 +44,10 @@
 </div>
 </div>
 <div class="ctx">
-  <router-view></router-view>
+  <router-view ></router-view>
 </div>
+</div>
+<div class="right"></div>
 </div>
 </template>
 <script>
@@ -64,21 +68,21 @@ export default {
 </script>
 <style lang="less" scoped>
 .mainbox{
-  height: 90vh;
-    width: 100vw;
+  min-height: 90vh;
+  width: 100vw;
+  background-color: #efe;
+  display: flex;
 }
 .topBox{
   height:30vh;
-  display: flex;
-  justify-content: center;
   .header{
-    width: 70vw;
     background-color: #fff;
+    border-radius: 8px;
    .img{
-     width: 70vw;
+     width: 100%;
      height: 25vh;
      overflow: hidden;
-     background: url('./minebg.jpg');
+     background: url('./mine.webp');
      background-repeat: no-repeat;
      background-size: cover;
      display: flex;
@@ -91,7 +95,7 @@ export default {
      }
      h1{
        font-size: 20px;
-       color: rgb(73, 8, 14);
+       color: #212121;
        margin-top: 10px;
      }
    }
@@ -101,27 +105,22 @@ export default {
    }
   }
 }
-// .avatar-uploader .el-upload {
-//     border: 1px dashed #d9d9d9;
-//     border-radius: 6px;
-//     cursor: pointer;
-//     position: relative;
-//     overflow: hidden;
-//   }
-//   .avatar-uploader .el-upload:hover {
-//     border-color: #409EFF;
-//   }
-//   .avatar-uploader-icon {
-//     font-size: 28px;
-//     color: #8c939d;
-//     width: 178px;
-//     height: 178px;
-//     line-height: 178px;
-//     text-align: center;
-//   }
-//   .avatar {
-//     width: 178px;
-//     height: 178px;
-//     display: block;
-//   }
+.left{
+  width: 205px;
+  min-height: 90vh;
+}
+.main{
+  min-height: 90vh;
+  flex:1;
+  min-height: 100%;
+}
+.right{
+   min-height: 90vh;
+  width: 205px;
+}
+.ctx{
+  margin-top: 5px;
+  background-color: #fff;
+  border-radius: 8px;
+}
 </style>
