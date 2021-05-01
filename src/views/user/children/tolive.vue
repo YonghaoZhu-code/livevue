@@ -114,7 +114,8 @@ export default {
 .form{
     width: 600px;
     margin: 0 auto;
-    padding-bottom: 10px;
+    padding-bottom: 6px;
+    padding-top: 4px;
 
 }
 </style>

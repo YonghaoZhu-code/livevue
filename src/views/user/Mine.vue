@@ -17,17 +17,17 @@
     </el-col>
      <el-col span="6">
        <router-link to="/">
-     <i class="el-icon-collection-tag" style="color: #F3A034;margin: 4px"></i>关注
+     <i class="el-icon-collection-tag" style="color: #bf4;margin: 4px"></i>关注
      </router-link>
     </el-col>
      <el-col span="6">
        <router-link to="/">
-     <i class="el-icon-collection" style="color: #FB7299;margin: 4px"></i>收藏
+     <i class="el-icon-s-promotion" style="color: #FB7299;margin: 4px"></i>动态
      </router-link>
     </el-col>
      <el-col span="6">
        <router-link to="/">
-    <i class="el-icon-service" style="color: #F3A034;margin: 4px"></i>申请直播
+    <i class="el-icon-service" style="color: #F3A034;margin: 4px"></i>开启直播
     </router-link>
     </el-col>
   </el-row>

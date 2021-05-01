@@ -16,9 +16,9 @@
                <div class="shang">{{liver.title||'无标题'}}</div>
                <div class="xia">
                 <div class="zuo">
-                  <div>{{liver.name||'恩七不甜'}}</div>
+                  <div><i class="iconfont icon-UPzhu" style="color: #5896de;;font-size: 18px;"></i>{{liver.name||'恩七不甜'}}</div>
                   <div><i class="iconfont icon-gift-fill" style="color:#fb7299;font-size: 22px;"></i>{{liver.gift||2.2}}万</div>
-                  <div>NO：{{liver.no||999}}</div>
+                  <div><i class="iconfont icon-icranking" style="color:#bf4;font-size: 22px;"></i>NO.{{liver.no||999}}</div>
                 </div>
                 <div class="you">
                   <div><i class="iconfont icon-heart"></i>关注</div>
@@ -42,28 +42,28 @@
         <div class="danmuctx">
           <div class="msg">系统提示：原子带货直播内容及互动评论须严格遵守直播规范，严禁传播违法违规、低俗血暴、吸烟酗酒、造谣诈骗等不良有害信息。如有违规，平台将进行封禁直至永久封停账号哦！</div>
           <div class="itemctx" ref="danmu">
-          <div class="items" v-for="msg in message" :key="msg">
-            <span class="username"><i></i>恩七不甜</span>
-            <span class="danmumsg">{{msg}}</span>
+          <div class="items" v-for="(danmsg,index) in message" :key="index">
+            <span class="username">{{danmsg.username||'恩七不甜 : '}}</span>
+            <span class="danmumsg">{{danmsg.msg||''}}</span>
           </div>
           </div>
         </div>
         <div class="danmubuttom">
-         <div>
+         <div class="inputmsg">
   <el-input
   type="textarea"
   :rows="2"
   placeholder="请输入弹幕内容"
   v-model="danmumsg">
 </el-input></div>
-<div><el-button type="primary" @click="senddanmu">发送</el-button>
+<div class="senddanmu"><el-button type="primary" @click="senddanmu">发送</el-button>
 </div>
         </div>
       </div>
         </div>
         <div class="catalog">
           <div class="first">TA的简介</div>
-          <div class="logbox"></div>
+          <div class="logbox">{{liver.catalog}}</div>
         </div>
         <div class="zoom">
           <div class="first">TA的动态</div>
@@ -86,6 +86,7 @@
 </template>
 <script>
 import liveplayer from '../../components/live'
+import { mapState } from 'vuex'
 export default {
   data () {
     return {
@@ -110,7 +111,7 @@ export default {
         return
       }
       if (this.danmumsg) {
-        this.ws.send(this.danmumsg)
+        this.ws.send(JSON.stringify({ username: this.userInfo.username + ' : ', msg: this.danmumsg }))
         console.log('发送弹幕成功')
       }
     },
@@ -121,11 +122,12 @@ export default {
         console.log('连接成功，可以实时通讯')
       })
       this.ws.addEventListener('message', (event) => {
-        this.message.push(event.data)
+        this.message.push(JSON.parse(event.data))
+        console.log(this.message)
+        // 解决弹幕信息自动滚动最低端
         this.$nextTick(() => {
           this.$refs.danmu.scrollTop = this.$refs.danmu.scrollHeight
         })
-        console.log(this.message)
       })
     },
     async getHeaderurl () {
@@ -133,12 +135,32 @@ export default {
       const { data: res } = await this.$http.get('/getheaderurl', { params: { uid } })
       this.HeaderUrl = this.$baseURL + res.HeaderUrl
       console.log(this.HeaderUrl)
+    },
+    toinroom () {
+      if (this.ws.readyState !== WebSocket.OPEN) {
+        console.log('连接未建立')
+        return
+      }
+      if (this.userInfo.username !== undefined) {
+        this.ws.send(JSON.stringify({ username: this.userInfo.username + ' ', msg: '进入直播间' }))
+        console.log(this.userInfo)
+      }
     }
   },
-  mounted () {
-    this.getliverInfo()
+  beforeMount () {
     this.initWebSocket()
+    console.log('---挂载前--')
+  },
+  mounted () {
+    window.scroll(0, 0)
+    this.getliverInfo()
     this.getHeaderurl()
+    setTimeout(() => {
+      this.toinroom()
+    }, 1000)
+  },
+  computed: {
+    ...mapState(['userInfo'])
   }
 }
 </script>
@@ -272,16 +294,37 @@ min-height:500px;
               width: 90%;
               padding: 5px;
               height: 350px;
-              background-color: rgb(165, 216, 216);
-              overflow-y:scroll;
+              overflow-x: hidden;
+              overflow-y:auto;
               .items{
               max-height: 68px;
               overflow: hidden;
+              font-size: 12px;
+              width: 280px;
+              padding: 5px;
+              .username{
+                color: #999;
+                font-size: 14px;
+              }
+              .danmumsg{
+                color: #646c7a;
+               word-wrap: break-word;
+               white-space: normal;
+              }
              }   }
         }
         .danmubuttom{
-          background-color: #f8f8f8;
           height: 153px;
+           background-color: #f8f8f8;
+          .inputmsg{
+            margin: 0 auto;
+            // padding-top: 30px;
+            width:235px ;
+          }
+          .senddanmu{
+            padding: 5px;
+           margin-left: 195px;
+          }
         }
     }
 }
