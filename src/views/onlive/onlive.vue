@@ -31,7 +31,10 @@
             <div v-show="liver.isLive"><liveplayer :playUrl="liver.playUrl"></liveplayer></div>
           </div>
           <div class="leftshopping">
-            666
+            <div class="shoppinglogo" @click="goshopping">
+              <i class="iconfont icon-shopping-cart1" style="font-size: 28px;color:#fff"></i>
+              <span style="padding:4px;color:#fff">立即购买</span>
+            </div>
           </div>
       </div>
       <!-- 右容器弹幕位置 -->
@@ -110,6 +113,10 @@ export default {
         console.log('连接未建立，还不能发送消息')
         return
       }
+      if (this.userInfo.username === undefined) {
+        this.$message.error('请先登录')
+        return
+      }
       if (this.danmumsg) {
         this.ws.send(JSON.stringify({ username: this.userInfo.username + ' : ', msg: this.danmumsg }))
         console.log('发送弹幕成功')
@@ -135,6 +142,13 @@ export default {
       const { data: res } = await this.$http.get('/getheaderurl', { params: { uid } })
       this.HeaderUrl = this.$baseURL + res.HeaderUrl
       console.log(this.HeaderUrl)
+    },
+    goshopping () {
+      if (this.liver.shopping) {
+        window.open(this.liver.shopping)
+      } else {
+        this.$message.error('主播未上架商品')
+      }
     },
     toinroom () {
       if (this.ws.readyState !== WebSocket.OPEN) {
@@ -264,6 +278,23 @@ min-height:500px;
         .leftmain{
           background: #000;
           height: 510px;
+        }
+        .leftshopping{
+          width: 100%;
+          height: 120px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          .shoppinglogo{
+            background-color:#ff5000;
+            width: 150px;
+            height: 60px;
+            border-radius: 12px;
+            padding: 8px;
+            font-size:28px;
+            line-height: 48px;
+            cursor: pointer;
+          }
         }
     }
     .boxright{

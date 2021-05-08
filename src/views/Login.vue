@@ -86,6 +86,7 @@ export default {
       const userInfo = JSON.stringify(res.userInfo)
       window.sessionStorage.setItem('userInfo', userInfo)
       this.setUserInfo(res.userInfo)
+      this.$router.push('/')
       return this.$message.success(res.msg)
     },
     reset () { this.$refs.loginFormRef.resetFields() },

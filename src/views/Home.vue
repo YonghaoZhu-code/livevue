@@ -23,7 +23,7 @@
         </a>
     </div>
     <div class="ctx">
-      <router-link :to="`/onlive/${liver.uid || 0}`" v-for="liver in livers" :key="liver">
+      <router-link :to="`/onlive/${liver.uid || 0}`" v-for="(liver,index) in livers" :key="index">
       <div class="show" >
         <div class="show-pic" :style="`background-image:url(${liver.imgUrl || 0}) `"></div>
         <div class="show-title">{{liver.title || "用户闲置177"}}</div>

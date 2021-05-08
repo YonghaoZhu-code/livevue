@@ -44,6 +44,10 @@ const routes = [
       {
         path: '/mine/tolive',
         component: () => import('../views/user/children/tolive.vue')
+      },
+      {
+        path: '/mine/toapply',
+        component: () => import('../views/user/children/toapply.vue')
       }
     ],
     // 权限页面拦截，true为需要权限
@@ -64,6 +68,10 @@ const routes = [
     meta: {
       auth: false
     }
+  },
+  {
+    path: '/classification',
+    component: () => import('../views/Classification.vue')
   }
 
 ]

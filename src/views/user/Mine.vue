@@ -11,7 +11,7 @@
 <div>
   <el-row>
     <el-col span="6">
-      <router-link to="/">
+      <router-link to="userinfo">
      <i class="el-icon-setting" style="color: #23C9ED;margin: 4px"></i>个人信息
      </router-link>
     </el-col>
@@ -26,8 +26,11 @@
      </router-link>
     </el-col>
      <el-col span="6">
-       <router-link to="/">
+    <router-link to="tolive" v-if="this.userInfo.role!=1">
     <i class="el-icon-service" style="color: #F3A034;margin: 4px"></i>开启直播
+    </router-link>
+    <router-link to="toapply" v-else class="mmp">
+    <i class="el-icon-service" style="color: #F3A034;margin: 4px"></i>申请直播
     </router-link>
     </el-col>
   </el-row>
@@ -101,6 +104,10 @@ export default {
    }
    .el-col{
      a{text-decoration: none;
+     }
+     .mmp{
+       a{text-decoration: none;
+     }
      }
    }
   }

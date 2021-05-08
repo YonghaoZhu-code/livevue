@@ -5,8 +5,8 @@
         </div>
         <ul class="ulbox">
          <li><router-link to="/">首页</router-link ></li>
-         <li><router-link to="/sellerlist">直播</router-link></li>
-         <li><router-link to="/details">分类</router-link></li>
+         <li><router-link to="/isliveing">直播</router-link></li>
+         <li><router-link to="/classification">分类</router-link></li>
          </ul>
          <div class="search">
              <el-input v-model="keyWord" size="large" placeholder="输入关键字搜索" ></el-input>
