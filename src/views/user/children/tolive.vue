@@ -4,9 +4,10 @@
      <el-form label-position="right" label-width="80px" :model="live" >
   <el-form-item label="上传封面" class="upsize">
       <el-upload
-  action="#"
+  action="http://127.0.0.1:9300/uploads/liveimg"
+  :data="{uid:userInfo.uid}"
+  name="liveimg"
   list-type="picture-card"
-  :auto-upload="false"
   limit=1
   >
     <i slot="default" class="el-icon-plus"></i>
@@ -53,6 +54,7 @@
     </div>
 </template>
 <script>
+import { mapState } from 'vuex'
 export default {
   data () {
     return {
@@ -66,6 +68,9 @@ export default {
       }
     }
   },
+  computed: {
+    ...mapState(['userInfo'])
+  },
   methods: {
     handlePictureCardPreview (file) {
       this.dialogImageUrl = file.url
@@ -77,6 +82,11 @@ export default {
         const i = this.formData.pics.findIndex(x => x.pic === filePath)
         this.formData.splice(i, 1)
       }
+    },
+    async  onnext () {
+      const { data: res } = await this.$http.get('/tolive', { params: { uid: this.userInfo.uid, title: this.live.title, catalog: this.live.catalog, shopping: this.live.shopping } })
+      if (res.code !== 200) return this.$message.error('服务器故障')
+      this.$router.push('toend')
     }
   }
 

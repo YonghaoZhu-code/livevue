@@ -1,6 +1,6 @@
 <template>
         <div class="dplayer">
-            <VueDPlayer :options="options"></VueDPlayer>
+            <VueDPlayer :options="options" v-if="canlive"></VueDPlayer>
         </div>
 </template>
 <script>
@@ -13,11 +13,18 @@ export default {
   props: {
     playUrl: String
   },
+  watch: {
+    playUrl (newval, oldval) {
+      this.options.video.url = newval
+      this.canlive = true
+    }
+  },
   data () {
     return {
+      canlive: false,
       options: {
         video: {
-          url: this.playUrl,
+          url: '',
           type: 'flv'
         },
         live: true,

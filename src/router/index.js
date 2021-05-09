@@ -48,6 +48,10 @@ const routes = [
       {
         path: '/mine/toapply',
         component: () => import('../views/user/children/toapply.vue')
+      },
+      {
+        path: '/mine/toend',
+        component: () => import('../views/user/children/toend.vue')
       }
     ],
     // 权限页面拦截，true为需要权限
