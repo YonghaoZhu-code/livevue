@@ -19,7 +19,9 @@ import {
   Carousel,
   CarouselItem,
   Pagination,
-  Divider
+  Divider,
+  Option,
+  Select
 } from 'element-ui'
 Vue.use(Button)
 Vue.use(Form)
@@ -41,4 +43,6 @@ Vue.use(Carousel)
 Vue.use(CarouselItem)
 Vue.use(Pagination)
 Vue.use(Divider)
+Vue.use(Option)
+Vue.use(Select)
 Vue.prototype.$message = Message

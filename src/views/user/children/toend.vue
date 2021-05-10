@@ -39,5 +39,4 @@ export default {
     min-height: 260px;
     }
 }
-
 </style>
