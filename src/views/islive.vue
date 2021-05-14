@@ -2,18 +2,10 @@
     <div class="box">
 <div class="left"></div>
 <div class="main">
-    <div class="top">
-        <el-row>
-  <el-button type="success" round @click="getliversbytype(2)">图书区</el-button>
-  <el-button type="primary" round @click="getliversbytype(3)">数码区</el-button>
-  <el-button type="warning" round @click="getliversbytype(5)">服饰区</el-button>
-  <el-button type="danger" round @click="getliversbytype(4)">美妆区</el-button>
-  <el-button type="info" round @click="getliversbytype(6)">汽车区</el-button>
-</el-row>
-    </div>
+
      <div class="liver">
     <div class="title">
-      <h2>分类主播</h2>
+      <h2>正在直播</h2>
     </div>
     <div class="ctx">
       <router-link :to="`/onlive/${liver.uid || 0}`" v-for="(liver,index) in livers" :key="index">
@@ -42,12 +34,15 @@ export default {
     }
   },
   methods: {
-    // 获取粉丝数排名前10的主播
-    async getliversbytype (type) {
-      const { data: res } = await this.$http.get('/getbytype', { params: { type } })
-      if (res.code !== 200) return this.$message.error('获取数据失败')
-      this.livers = res.livers
+    // 获取正在直播的主播
+    async getLivinglivers () {
+      const { data: res } = await this.$http.get('/onliveing')
+      if (res.code !== 200) return this.$message.error('当前没有主播正在直播')
+      this.livers = res.livinglist
     }
+  },
+  mounted () {
+    this.getLivinglivers()
   }
 }
 </script>
@@ -75,13 +70,6 @@ export default {
 .liver{
   margin-top: 10px;
   padding: 0 10px;
-}
-.top{
-  margin: 0 auto;
-  padding:16px;
-  button{
-    margin-right: 24px;
-  }
 }
 .title{
   margin: 0;

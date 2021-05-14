@@ -100,7 +100,7 @@ export default {
 <style lang="less" scoped>
  .registerBox{
     height: 90vh;
-    background: url('../assets/bg3.jpg');
+    background: url('../assets/bg.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     display: flex;

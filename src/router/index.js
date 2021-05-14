@@ -76,6 +76,10 @@ const routes = [
   {
     path: '/classification',
     component: () => import('../views/Classification.vue')
+  },
+  {
+    path: '/isliveing',
+    component: () => import('../views/islive.vue')
   }
 
 ]
